@@ -5,7 +5,6 @@ out/*
 .DS_Store
 magellan_megaspark.iml
 
-
 megaspark/.DS_Store
 megaspark/_pycache__/*
 megaspark/ml/__pycache__/*
