@@ -1,14 +1,10 @@
-[![Build Status](https://travis-ci.org/dvgodoy/handyspark.svg?branch=master)](https://travis-ci.org/dvgodoy/handyspark)
-
 # MegaSpark说明
 这是一个旨在`...`，定期发布到`pipy.org`
 
 目前提供以下模块：
 * `ml`
-  * `xx`
-* `sql`: 
-  * `mag_case`: 提供各种教程
-* `` 
+* `sql`
+* `entrance` 
   
   
 ```
@@ -25,11 +21,10 @@ $ python install .
 以`magllan_ai.ml.mag_util.mag_metrics`模块为例，安装完成之后，可以使用以下方法导入使用
 
 ```
-from magllan_ai.ml.mag_util import mag_metrics
+from libs.magellanai import *
 
-mag_metrics.show_func()
-mag_metrics.cal_auc()
-mag_metrics.cal_psi()
+data_df = read_csv("path/to/file.csv")
+data_df.magellan.head(5)
 ```
 
 # 打包发布
