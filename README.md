@@ -9,7 +9,7 @@
 * `entrance` 
   
   
-```
+
 # 本地安装
 如果要给该项目贡献代码，在本地调试好后测试，本地安装方法
 
@@ -23,7 +23,7 @@ $ python install .
 以`magllan_ai.ml.mag_util.mag_metrics`模块为例，安装完成之后，可以使用以下方法导入使用
 
 ```
-from libs.magellanai import *
+from megaspark.libs.magellanai import *
 
 data_df = read_csv("path/to/file.csv")
 data_df.magellan.head(5)

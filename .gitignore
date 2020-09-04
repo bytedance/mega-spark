@@ -9,3 +9,4 @@ megaspark/.DS_Store
 megaspark/_pycache__/*
 megaspark/ml/__pycache__/*
 megaspark/sql/__pycache__/*
+megaspark/libs/.ipynb_checkpoints

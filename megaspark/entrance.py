@@ -1,5 +1,9 @@
-# import findspark
-# findspark.init()
+import findspark
+findspark.init()
+
+import os
+os.environ["PYSPARK_SUBMIT_ARGS"] = '--jars ./site-packages/xgboost4j-0.72.jar, ' \
+                                    './site-packages/xgboost4j-spark-0.72.jar'
 
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import desc

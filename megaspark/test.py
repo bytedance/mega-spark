@@ -1,17 +1,79 @@
+import os
+os.environ["HADOOP_USER_NAME"] = "huangning.honey"  # 设置与hadoop通信的用户名
+os.environ["PYSPARK_SUBMIT_ARGS"] = '--jars /Users/bytedance/ByteCode/magellan_megaspark/megaspark/' \
+                                    'libs/xgboost4j-0.72.jar,/Users/bytedance/ByteCode/magellan_megaspark/' \
+                                    'megaspark/libs/xgboost4j-spark-0.72.jar pyspark-shell'
+
+
+import findspark
+findspark.init("/usr/local/Cellar/spark-2.4.6-bin-hadoop2.7")
+
+from pyspark.sql import SparkSession
+from pyspark.ml import Pipeline
+from pyspark.sql.functions import col
+from pyspark.sql.types import StructType, StructField, DoubleType, StringType
+from pyspark.ml.feature import StringIndexer, VectorAssembler # 将字符型特征转成数值型
 
 if __name__ == "__main__":
 
-    print("ddd")
-    # spark = SparkSession \
-    #     .builder\
-    #     .appName("test_xgboost") \
-    #     .master("local") \
-    #     .getOrCreate()
+    spark = SparkSession.builder.appName("PySpark XGBOOST Titanic").master("local[*]").getOrCreate()
+    spark.sparkContext.setLogLevel("Error")
+    spark.sparkContext.addPyFile("/Users/bytedance/ByteCode/magellan_megaspark/megaspark/libs/sparkxgb.zip")
+    from sparkxgb import XGBoostEstimator
 
-    # .config("spark.jars.packages", "/Users/bytedance
-    # /ByteCode/magellan_s2p/libs/xgboost4j-0.90.jar,
-    # /Users/bytedance/ByteCode/magellan_s2p/libs/xgboost4j-spark-0.90.jar") \
-    # 将多个jar包添加到spark环境，中间用逗号隔开
+    # 定义数据结构类型，不让用户自己推断
+    schema = StructType(
+        [StructField("PassengerId", DoubleType()),
+         StructField("Survival", DoubleType()),
+         StructField("Pclass", DoubleType()),
+         StructField("Name", StringType()),
+         StructField("Sex", StringType()),
+         StructField("Age", DoubleType()),
+         StructField("SibSp", DoubleType()),
+         StructField("Parch", DoubleType()),
+         StructField("Ticket", StringType()),
+         StructField("Fare", DoubleType()),
+         StructField("Cabin", StringType()),
+         StructField("Embarked", StringType())
+         ])
 
-    # spark_df = spark.read.option("header", "true").csv("./input/train.csv")
-    # spark_df.show(5)
+    spark_row = spark \
+        .read \
+        .schema(schema) \
+        .csv("/Users/bytedance/ByteCode/jupyter/megaspark/input/titanic/train.csv")
+    spark_df = spark_row.na.fill(0)
+
+    # In order to convert the nominal values into numeric ones we need to define aTransformer for each column:
+    sexIndexer = StringIndexer() \
+        .setInputCol("Sex") \
+        .setOutputCol("SexIndex") \
+        .setHandleInvalid("keep")
+
+    cabinIndexer = StringIndexer() \
+        .setInputCol("Cabin") \
+        .setOutputCol("CabinIndex") \
+        .setHandleInvalid("keep")
+
+    embarkedIndexer = StringIndexer() \
+        .setInputCol("Embarked") \
+        .setOutputCol("EmbarkedIndex") \
+        .setHandleInvalid("keep")
+
+    # 将多个列名组成的向量
+    vectorAssembler = VectorAssembler() \
+        .setInputCols(["Pclass", "SexIndex", "Age", "SibSp", "Parch", "Fare", "CabinIndex", "EmbarkedIndex"]) \
+        .setOutputCol("features")
+
+    # 模型训练
+    xgboost = XGBoostEstimator(
+        featuresCol="features",
+        labelCol="Survival",
+        predictionCol="prediction"
+    )
+
+    pipeline = Pipeline().setStages([sexIndexer, cabinIndexer, embarkedIndexer, vectorAssembler, xgboost])
+
+    trainDF, testDF = spark_df.randomSplit([0.8, 0.2], seed=24)
+
+    model = pipeline.fit(trainDF)
+    model.transform(testDF).select(col("PassengerId"), col("prediction")).show()
