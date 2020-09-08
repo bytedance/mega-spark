@@ -23,10 +23,10 @@ $ python install .
 以`magllan_ai.ml.mag_util.mag_metrics`模块为例，安装完成之后，可以使用以下方法导入使用
 
 ```
-from megaspark.libs.magellanai import *
+import megaspark.sql.entrymega as mg
 
-data_df = read_csv("path/to/file.csv")
-data_df.magellan.head(5)
+data_df = mg.read_csv("path/to/file.csv")
+data_df.mega.head(5)
 ```
 
 # 打包发布
