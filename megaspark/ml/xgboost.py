@@ -5,7 +5,7 @@ from pyspark.sql.types import StructType, StructField, DoubleType, StringType
 from pyspark.ml.feature import StringIndexer, VectorAssembler
 
 import os
-os.environ["HADOOP_USER_NAME"] = "huangning.honey"
+os.environ["HADOOP_USER_NAME"] = "huangning"
 os.environ["PYSPARK_SUBMIT_ARGS"] = '--jars /Users/bytedance/ByteCode/' \
                                     'magellan_megaspark/megaspark/' \
                                     'libs/xgboost4j-0.72.jar,/Users/' \
