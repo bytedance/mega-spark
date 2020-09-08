@@ -11,11 +11,17 @@ print("welcome Mega Spark 🥳🥳")
 
 
 def show_func():
-    print("+---------------------+")
-    print("|ml  method           |")
-    print("+---------------------+")
-    print("|XGBoostClassifier    |")
-    print("+---------------------+")
+    print("+-------------------+")
+    print("|sql method         |")
+    print("+-------------------+")
+    print("|1. read_csv        |")
+    print("+-------------------+")
+    print("|DataFrame method   |")
+    print("|1. head            |")
+    print("|2. table_alias     |")
+    print("|3. sort_values     |")
+    print("|4. fillna          |")
+    print("+-------------------+")
 
 
 def read_csv(input_path, header=True):
