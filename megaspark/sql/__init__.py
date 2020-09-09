@@ -1,1 +1,1 @@
-__all__ = ["entrymega"]
+__all__ = ["tomega.py"]

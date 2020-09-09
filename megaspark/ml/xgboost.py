@@ -13,6 +13,14 @@ os.environ["PYSPARK_SUBMIT_ARGS"] = '--jars /Users/bytedance/ByteCode/' \
                                     'megaspark/libs/' \
                                     'xgboost4j-spark-0.72.jar pyspark-shell'
 
+
+def train_test_split(df, test_size, random_state):
+    train_size = 1 - test_size
+    train_df, test_df = df.randomSplit(
+        [train_size, test_size], seed=random_state)
+    return train_df, test_df
+
+
 if __name__ == "__main__":
 
     spark = SparkSession.builder.appName("PySpark XGBOOST Titanic")\

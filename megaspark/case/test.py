@@ -1,13 +1,10 @@
-import megaspark.sql.entrymega as mg
+import megaspark.tomega as tm
 
 if __name__ == "__main__":
-
     input_path = "/Users/bytedance/ByteCode/magellan_megaspark/data/train.csv"
-    data_df = mg.read_csv(input_path)
+    data_df = tm.read_csv(input_path, header=True)
 
-    # 给hive表的数据框起一个别名
     data_df.mega.table_alias("student")
-
-    sample_df = mg.sql("select * from student")
-
-    sample_df.show(3)
+    sample_df = tm.sql("select * from student")
+    df = sample_df.mega.fillna({"Survived": 0, "Cabin": "unknown"})
+    print(df.mega.head(5))
