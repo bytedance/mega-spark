@@ -7,7 +7,7 @@ import os
 
 # 包元信息
 NAME = 'megaspark'
-DESCRIPTION = 'Some computing tools with machine learning, python 3.6+.'
+DESCRIPTION = 'Some computing tools about feature tool and ml model.'
 AUTHOR = 'huangning'
 
 # 项目运行需要的依赖
@@ -23,8 +23,8 @@ except IOError:
     long_description = DESCRIPTION
 
 setup(
-      name='byted-'+NAME,
-      version='1.2.1',
+      name=''+NAME,
+      version='1.0.0',
       description=DESCRIPTION,
       long_description=long_description,
       long_description_content_type="text/markdown",

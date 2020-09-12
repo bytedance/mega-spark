@@ -1,5 +1,8 @@
 .idea/*
+build/*
+byted_megaspark.egg-info/*
 data/*
+dist/*
 out/*
 
 .DS_Store
