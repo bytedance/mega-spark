@@ -1,6 +1,6 @@
 .idea/*
 build/*
-byted_megaspark.egg-info/*
+megaspark.egg-info/*
 data/*
 dist/*
 out/*
