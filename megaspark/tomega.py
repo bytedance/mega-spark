@@ -17,11 +17,12 @@ from pyspark.sql.types import StructType, StructField
 from pyspark.sql.types import ByteType, ShortType, \
     IntegerType, LongType, FloatType, DoubleType, BooleanType, StringType
 
+
 spark = SparkSession.builder.appName("mega sql").master("local").getOrCreate()
-# spark.sparkContext.addPyFile("/Users/bytedance"
-#                              "/ByteCode/magellan_megaspark"
-#                              "/megaspark/libs/sparkxgb.zip")
-# from sparkxgb import XGBoostEstimator
+spark.sparkContext.addPyFile("/Users/bytedance"
+                             "/ByteCode/magellan_megaspark"
+                             "/megaspark/libs/sparkxgb.zip")
+from sparkxgb import XGBoostEstimator
 
 
 print("welcome Mega Spark 🥳🥳")

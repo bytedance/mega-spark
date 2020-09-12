@@ -3,18 +3,17 @@ from pyspark.ml import Pipeline
 from pyspark.sql.functions import col
 from pyspark.ml.feature import StringIndexer, VectorAssembler
 # from megaspark.ml.sparkxgb import XGBoostEstimator
-
+from megaspark.tomega import XGBoostEstimator
 
 class XGBoostClassifier:
 
     def __init__(self, feat_name, label_name, pred_name):
 
-        # self.xgb = XGBoostEstimator(
-        #     featuresCol=feat_name,
-        #     labelCol=label_name,
-        #     predictionCol=pred_name
-        # )
-        ...
+        self.xgb = XGBoostEstimator(
+            featuresCol=feat_name,
+            labelCol=label_name,
+            predictionCol=pred_name
+        )
 
     def fit(self, df):
 
@@ -49,7 +48,6 @@ class XGBoostClassifier:
         self.model = pipeline.fit(df)
 
     def predict_proba(self, df):
-        print("来到了预测环节")
 
         return self.model.transform(df)
 
