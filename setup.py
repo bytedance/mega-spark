@@ -6,7 +6,7 @@ import io
 import os
 
 # 包元信息
-NAME = 'megaspark'
+NAME = 'mega-spark'
 DESCRIPTION = 'Some computing tools about feature tool and ml model.'
 AUTHOR = 'huangning'
 

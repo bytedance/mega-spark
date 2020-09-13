@@ -6,7 +6,7 @@
 目前提供以下模块：
 * `ml`
 * `sql`
-* `entrance` 
+* `tomega` 
   
   
 
@@ -20,10 +20,10 @@ $ python install .
 ```
 
 # 使用教程
-以`magllan_ai.ml.mag_util.mag_metrics`模块为例，安装完成之后，可以使用以下方法导入使用
+以`tomega`模块为例，安装完成之后，可以使用以下方法导入使用
 
 ```
-import megaspark.sql.entrymega as mg
+import megaspark.tomega as mg
 
 data_df = mg.read_csv("path/to/file.csv")
 data_df.mega.head(5)
@@ -35,5 +35,5 @@ data_df.mega.head(5)
 $ cd /path/to/megaspark
 $ python setup.py sdist bdist_wheel
 $ pip install twine
-$ twine upload dist/*
+$ python3 -m twine upload dist/*
 ```
