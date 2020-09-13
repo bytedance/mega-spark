@@ -1,0 +1,15 @@
+README.md
+setup.py
+mega_spark.egg-info/PKG-INFO
+mega_spark.egg-info/SOURCES.txt
+mega_spark.egg-info/dependency_links.txt
+mega_spark.egg-info/requires.txt
+mega_spark.egg-info/top_level.txt
+megaspark/__init__.py
+megaspark/tomega.py
+megaspark/case/__init__.py
+megaspark/case/test.py
+megaspark/ml/__init__.py
+megaspark/ml/mega_xgboost.py
+megaspark/sql/__init__.py
+megaspark/sql/megaframe.py
