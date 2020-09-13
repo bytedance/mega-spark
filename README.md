@@ -33,7 +33,7 @@ data_df.mega.head(5)
 
 ```
 $ cd /path/to/megaspark
-$ python setup.py sdist bdist_wheel
-$ pip install twine
+$ python3 setup.py sdist bdist_wheel
+$ pip3 install twine
 $ python3 -m twine upload dist/*
 ```
