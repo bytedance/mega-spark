@@ -11,16 +11,13 @@ from pyspark.sql.types import StructType, StructField
 
 import os
 # os.environ["HADOOP_USER_NAME"] = "huangning"
-os.environ["PYSPARK_SUBMIT_ARGS"] = '--jars /Users/bytedance/ByteCode/' \
-                                    'magellan_megaspark/megaspark/' \
-                                    'libs/xgboost4j-0.72.jar,/Users/' \
-                                    'bytedance/ByteCode/magellan_megaspark/' \
-                                    'megaspark/libs/' \
-                                    'xgboost4j-spark-0.72.jar pyspark-shell'
+os.environ["PYSPARK_SUBMIT_ARGS"] = '--jars ./megaspark/' \
+                                    'libs/xgboost4j-0.72.jar,./megaspark/libs/' \
+                                    'xgboost4j-spark-0.72.jar'
 
 if __name__ == "__main__":
 
-    input_path = "/Users/bytedance/ByteCode/magellan_megaspark/data/train.csv"
+    input_path = "/Users/bytedance/ByteCode/magellan_megaspark/data/cs-training.csv"
     data_df = tm.read_csv(input_path, header=False, feats_info={"PassengerId": "double",
                                                                "Survived": "double",
                                                                "Pclass": "double",
@@ -33,20 +30,21 @@ if __name__ == "__main__":
                                                                "Fare": "double",
                                                                "Cabin": "string",
                                                                "Embarked": "string"})
+
     data_df = data_df.na.fill(0)
     data_df.mega.table_alias("student")
-    sample_df = tm.sql("select * from student")
+    sample_df = tm.sql("select * from student limit 10")
     df = sample_df.mega.fillna({"Survived": 0, "Cabin": "unknown"})
-    print(df.mega.head(5))
 
     # 将数据集分割成训练集和验证集
-    trainDF, testDF = tm.train_test_split(df, test_size=0.3, random_state=99)
+    trainDF, testDF = tm.train_test_split(data_df, test_size=0.9, random_state=99)
 
-    # 模型训练
+    # model train
     xgb_clf = XGBoostClassifier("features", "Survived", "prediction")
-    xgb_clf.fit(trainDF)
-    # res = xgb_clf.predict_proba(trainDF)
-    # res.mega.head(5)
+    sample_df.show(3)
+    xgb_clf.fit(sample_df)
+    res = xgb_clf.predict_proba(sample_df)
+    print(res.mega.head(5))
 
     # spark = SparkSession.builder.appName("mega sql").master("local[*]").getOrCreate()
     # spark.sparkContext.addPyFile("/Users/bytedance"
@@ -71,6 +69,8 @@ if __name__ == "__main__":
     # data_df = spark.read.option("header", "true").schema(schema).csv(input_path)
     # spark_df = data_df.na.fill(0)
 
+    # data_df = spark.read.option("header", "true").csv(input_path)
+
     # # In order to convert the nominal values into numeric
     # # ones we need to define aTransformer for each column:
     # sexIndexer = StringIndexer() \
@@ -93,11 +93,11 @@ if __name__ == "__main__":
     #                    "SibSp", "Parch", "Fare",
     #                    "CabinIndex", "EmbarkedIndex"]) \
     #     .setOutputCol("features")
-    #
+
     # # from megaspark.ml.sparkxgb import XGBoostEstimator
     # xgboost = XGBoostEstimator(
     #     featuresCol="features",
-    #     labelCol="Survived",
+    #     labelCol="SeriousDlqin2yrs",
     #     predictionCol="prediction"
     # )
     # pipeline = Pipeline().setStages([sexIndexer,
