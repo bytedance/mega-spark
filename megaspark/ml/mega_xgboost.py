@@ -2,12 +2,18 @@ from pyspark.sql import SparkSession
 from pyspark.ml import Pipeline
 from pyspark.sql.functions import col
 from pyspark.ml.feature import StringIndexer, VectorAssembler
-# from megaspark.ml.sparkxgb import XGBoostEstimator
-from megaspark.tomega import XGBoostEstimator
+from pyspark.sql.types import StructType, StructField, DoubleType, StringType
+from pyspark.ml.feature import StringIndexer, VectorAssembler
+from megaspark.ml.xgboost import XGBoostEstimator
+# from megaspark.tomega import XGBoostEstimator
 
 class XGBoostClassifier:
 
     def __init__(self, feat_name, label_name, pred_name):
+
+        self.label_name = label_name
+        self.pred_name = pred_name
+        self.feat_name = feat_name
 
         self.xgb = XGBoostEstimator(
             featuresCol=feat_name,
@@ -49,5 +55,5 @@ class XGBoostClassifier:
 
     def predict_proba(self, df):
 
-        return self.model.transform(df)
+        return self.model.transform(df).select(self.label_name, "probabilities", self.pred_name)
 

@@ -1,14 +1,14 @@
 import findspark
 findspark.init("/usr/local/Cellar/spark-2.4.6-bin-hadoop2.7")
 
-import os
-os.environ["HADOOP_USER_NAME"] = "huangning"
-os.environ["PYSPARK_SUBMIT_ARGS"] = '--jars /Users/bytedance/ByteCode/' \
-                                    'magellan_megaspark/megaspark/' \
-                                    'libs/xgboost4j-0.72.jar,/Users/' \
-                                    'bytedance/ByteCode/magellan_megaspark/' \
-                                    'megaspark/libs/' \
-                                    'xgboost4j-spark-0.72.jar pyspark-shell'
+# import os
+# os.environ["HADOOP_USER_NAME"] = "huangning"
+# os.environ["PYSPARK_SUBMIT_ARGS"] = '--jars /Users/bytedance/ByteCode/' \
+#                                     'magellan_megaspark/megaspark/' \
+#                                     'libs/xgboost4j-0.72.jar,/Users/' \
+#                                     'bytedance/ByteCode/magellan_megaspark/' \
+#                                     'megaspark/libs/' \
+#                                     'xgboost4j-spark-0.72.jar pyspark-shell'
 
 from pyspark.sql import DataFrame
 from pyspark.sql import SparkSession
@@ -23,10 +23,10 @@ spark = SparkSession\
     .appName("mega sql")\
     .master("local")\
     .getOrCreate()
-spark.sparkContext.addPyFile("/Users/bytedance"
-                             "/ByteCode/magellan_megaspark"
-                             "/megaspark/libs/sparkxgb.zip")
-from sparkxgb import XGBoostEstimator
+# spark.sparkContext.addPyFile("/Users/bytedance"
+#                              "/ByteCode/magellan_megaspark"
+#                              "/megaspark/libs/sparkxgb.zip")
+# from sparkxgb import XGBoostEstimator
 
 
 print("Welcome Mega Spark ～")
