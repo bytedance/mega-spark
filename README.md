@@ -24,7 +24,7 @@ $ python install .
 建议使用官方镜像，安装最新版本。
 
 ```
-$ pip install mega-spark -i https://pypi.Python.org/simple/
+$ pip install --index-url https://pypi.org/simple/ mega-spark
 ```
 
 # 使用教程
