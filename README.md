@@ -18,6 +18,13 @@ $ cd megaspark
 $ python install .
 ```
 
+# 在线安装
+建议使用官方镜像，安装最新版本。
+
+```python
+pip install mega-spark -i https://pypi.Python.org/simple/
+```
+
 # 使用教程
 以`tomega`模块为例，安装完成之后，可以使用以下方法导入使用
 
