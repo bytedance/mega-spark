@@ -5,15 +5,17 @@
 
 目前提供以下模块：
 * `ml`
+    * `mega_xgboost`
 * `sql`
+    * `megaframe`
 * `tomega` 
   
   
 # 本地安装
 如果要给该项目贡献代码，在本地调试好后测试，本地安装方法
 
-```python
-$ git clone ...
+```
+$ git clone .
 $ cd megaspark
 $ python install .
 ```
@@ -21,8 +23,8 @@ $ python install .
 # 在线安装
 建议使用官方镜像，安装最新版本。
 
-```python
-pip install mega-spark -i https://pypi.Python.org/simple/
+```
+$ pip install mega-spark -i https://pypi.Python.org/simple/
 ```
 
 # 使用教程
@@ -43,3 +45,8 @@ $ python3 setup.py sdist bdist_wheel
 $ pip3 install twine
 $ python3 -m twine upload dist/*
 ```
+
+# 注意事项
+
+如果使用`ml`模块中的`xgboost`，需要在`SPARK_HOME/jar`中添加`xgboost4j-0.72.jar`以及`xgboost4j-spark-0.72.jar`
+
