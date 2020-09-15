@@ -15,6 +15,7 @@ if __name__ == "__main__":
                                                                "Fare": "double",
                                                                "Cabin": "string",
                                                                "Embarked": "string"})
+    print(help(tm.read_csv))
 
     data_df = data_df.mega.fillna({"PassengerId": 0,
                                    "Survived": 0,
